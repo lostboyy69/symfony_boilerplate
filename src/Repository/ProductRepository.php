@@ -40,4 +40,12 @@ class ProductRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findAllSortedByPriceDesc(): array
+{
+    return $this->createQueryBuilder('p')
+        ->orderBy('p.price', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
 }
