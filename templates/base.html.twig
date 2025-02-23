@@ -25,7 +25,7 @@
 
     <form action="{{ path('app_home') }}" method="post">
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
-    <li><a href="{{ path('client_index') }}">Clients</a></li>
+    <li><a href="{{ path('app_client_index') }}">Clients</a></li>
     {% endif %}
 
    
