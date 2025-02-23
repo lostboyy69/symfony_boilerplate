@@ -21,13 +21,25 @@ class UserVoter extends Voter
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
-    {
-        $user = $token->getUser();
+{
+    $user = $token->getUser();
+    
+    dump('Attribut reçu :', $attribute);
+    dump('Objet reçu :', $subject);
+    dump('Utilisateur connecté :', $user);
+    dump('Rôles de l\'utilisateur :', $user instanceof User ? $user->getRoles() : 'Utilisateur non connecté');
 
-        if (!$user instanceof User) {
-            return false;
-        }
 
-        return $this->security->isGranted('ROLE_ADMIN');
+    if (!$user instanceof User) {
+        return false;
     }
+
+    // Si l'utilisateur est admin, il peut modifier tout le monde
+    if ($this->security->isGranted('ROLE_ADMIN')) {
+        return true;
+    }
+    return $user === $subject;
+}
+
+    
 }

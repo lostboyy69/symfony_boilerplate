@@ -17,6 +17,11 @@
             <li><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
         {% endif %}
     
+    {% if app.user %}
+    <li>
+        <a href="{{ path('admin_user_edit', { id: app.user.id }) }}" class="text-blue-500">Modifier mon profil</a>
+    </li>
+    {% endif %}
 
     <form action="{{ path('app_home') }}" method="post">
    

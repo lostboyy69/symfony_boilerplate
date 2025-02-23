@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     
     #[ORM\Column]
-    private $roles = '';
+    private $roles = '["ROLE_USER"]';
 
     /**
      * @var string The hashed password
@@ -69,6 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
+        
 
         return $this->roles ? json_decode($this->roles, true) : ['ROLE_USER'];
     }
@@ -78,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setRoles(array $roles): self
     {
-        $this->roles = json_encode($roles);
+        $this->roles = json_encode(array_values(array_unique($roles)), JSON_THROW_ON_ERROR);
         return $this;
     }
 
